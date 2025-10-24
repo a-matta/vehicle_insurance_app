@@ -4,7 +4,6 @@
         "ms-python.isort",
         "ms-python.python",
         "ritwickdey.LiveServer",
-        "d-biehl.robotcode",
-        "robocorp.robotframework-lsp"
+        "d-biehl.robotcode"
     ]
 }
