@@ -1,0 +1,9 @@
+.venv/
+**/__pycache__/
+
+# RobotFramework generated files
+output/
+log.html
+output.xml
+report.html
+selenium-screenshot*

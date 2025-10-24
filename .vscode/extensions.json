@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.python",
+        "ritwickdey.LiveServer",
+        "d-biehl.robotcode",
+        "robocorp.robotframework-lsp"
+    ]
+}

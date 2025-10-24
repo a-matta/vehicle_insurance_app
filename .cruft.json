@@ -1,0 +1,17 @@
+{
+  "template": "https://github.com/a-matta/robotframework-python-cookiecutter",
+  "commit": "ceff92b60f477fef5947c6bba835e40806484896",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "author_name": "Amrita",
+      "author_email": "matta.amrita@gmail.com",
+      "github_username": "a-matta",
+      "project_name": "vehicle_insurance_app",
+      "project_slug": "vehicle_insurance_app",
+      "project_short_description": "A short description of the project",
+      "_template": "https://github.com/a-matta/robotframework-python-cookiecutter"
+    }
+  },
+  "directory": null
+}
