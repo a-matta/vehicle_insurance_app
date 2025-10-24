@@ -1,40 +1,62 @@
-***Settings***
-Library     Browser
+*** Settings ***
+Library         Browser
+Library         FakerLibrary
 
-Test Setup          Open Insurance Application
-#Test Teardown       Cleanup Browsers
+Test Setup      Open Insurance Application
+# Test Teardown    Cleanup Browsers
 
-***Variables***
+
+*** Variables ***
 ${BROWSER}      chromium
-${URL}      https://sampleapp.tricentis.com/
+${URL}          https://sampleapp.tricentis.com/
 
-***Keywords***
+
+*** Test Cases ***
+Create Quote For Automobile
+    Fill Vehicle Data for Motorcycle
+    Enter Insurance Data
+
+
+*** Keywords ***
 Open Insurance Application
     New Browser    ${BROWSER}    headless=False
     New Context    viewport={'width': 1920, 'height': 1080}
     New Page
-    Go To       url=${URL}    timeout=60000    wait_until=domcontentloaded
-    ${title}=      Get Title
-    Log            Page title: ${title}
+    Go To    url=${URL}    timeout=60000    wait_until=domcontentloaded
+    ${title}=    Get Title
+    Log    Page title: ${title}
     Should Contain    ${title}    Tricentis
 
 Fill Vehicle Data for Motorcycle
     Click    div.main-navigation >> "Motorcycle"
-    Sleep    5s
+    Sleep    2s
     Select Options By    xpath=(//*[@id="make"])    text    Audi
     Select Options By    xpath=(//*[@id="model"])    text    Scooter
     Fill Text    xpath=(//*[@id="cylindercapacity"])    2
     Fill Text    xpath=(//*[@id="engineperformance"])    100
-    Fill Text   xpath=(//*[@id="dateofmanufacture"])    03/11/1990
+    Fill Text    xpath=(//*[@id="dateofmanufacture"])    03/11/1990
     Select Options By    xpath=(//*[@id="numberofseatsmotorcycle"])    text    1
     Fill Text    xpath=(//*[@id="listprice"])    500
-    Fill Text   xpath=(//*[@id="annualmileage"])    100
-    Click    xpath=(//*[@id="nextenterinsurantdata"])    middle
+    Fill Text    xpath=(//*[@id="annualmileage"])    100
+    Click    xpath=(//*[@id="nextenterinsurantdata"])
 
 Enter Insurance Data
     Wait For Elements State    xpath=(//*[@id="firstname"])    visible    10000
-    Fill Text   xpath=(//*[@id="firstname"])    amrita
-
+    ${username}=    FakerLibrary.UserName
+    Fill Text    xpath=(//*[@id="firstname"])    ${username}
+    ${lastname}=    FakerLibrary.LastName
+    Fill Text    xpath=(//*[@id="lastname"])    ${lastname}
+    ${date}=    FakerLibrary.DateOfBirth
+    Fill Text    xpath=(//*[@id="birthdate"])    ${date}
+    Check Checkbox    *css=label >> id=gendermale
+    ${address}=    FakerLibrary.Address
+    Fill Text    id=streetaddress    ${address}
+    Select Options By    id=country    text    Germany
+    Fill Text    id=zipcode    40123
+    Fill Text    id=city    Essen
+    Select Options By    id=occupation    text    Employee
+    Click    text=Cliff Diving
+    Click    section[style="display: block;"] >> text=Next »
 
 Cleanup Browsers
     Run Keyword And Ignore Error    Close Context
@@ -42,8 +64,3 @@ Cleanup Browsers
 
 End Test
     Log    Test finished
-
-***Test Cases***
-Create Quote For Automobile
-    Fill Vehicle Data for Motorcycle
-    Enter Insurance Data
