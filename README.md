@@ -2,6 +2,7 @@
 
 Vehicle Insurance Application 
 webpage: http://sampleapp.tricentis.com/
+
 This is an example of data driven tests using Browser library uses Playwright under the hood (modern, faster, async-capable).
 I’ve transitioned from SeleniumLibrary to BrowserLibrary to take advantage of Playwright’s parallel execution, auto-waiting, and faster performance.
 The keyword syntax is similar, but BrowserLibrary provides better reliability for modern web apps
