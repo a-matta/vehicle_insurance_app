@@ -1,9 +1,9 @@
 *** Settings ***
-Library         Browser
-Library         FakerLibrary
+Library             Browser
+Library             FakerLibrary
 
-Test Setup      Open Insurance Application
-# Test Teardown    Cleanup Browsers
+Test Setup          Open Insurance Application
+Test Teardown       Cleanup Browsers
 
 
 *** Variables ***
@@ -15,6 +15,7 @@ ${URL}          https://sampleapp.tricentis.com/
 Create Quote For Automobile
     Fill Vehicle Data for Motorcycle
     Enter Insurance Data
+    Enter Product Data
 
 
 *** Keywords ***
@@ -48,7 +49,8 @@ Enter Insurance Data
     Fill Text    xpath=(//*[@id="lastname"])    ${lastname}
     ${date}=    FakerLibrary.DateOfBirth
     Fill Text    xpath=(//*[@id="birthdate"])    ${date}
-    Check Checkbox    *css=label >> id=gendermale
+    Sleep    15s
+    Check Checkbox    xpath=(//*[@id="gendermale"])
     ${address}=    FakerLibrary.Address
     Fill Text    id=streetaddress    ${address}
     Select Options By    id=country    text    Germany
@@ -56,7 +58,17 @@ Enter Insurance Data
     Fill Text    id=city    Essen
     Select Options By    id=occupation    text    Employee
     Click    text=Cliff Diving
-    Click    section[style="display: block;"] >> text=Next »
+    Click    xpath=(//*[@id="nextenterproductdata"])
+
+Enter Product Data
+    ${date}=    FakerLibrary.DateOfBirth
+    Fill Text    xpath=(//*[@id="startdate"])    ${date}
+    Select Options By    xpath=(//*[@id="insurancesum"])    text    3.000.000,00
+    Select Options By    xpath=(//*[@id="damageinsurance"])    text    No Coverage
+    Check Checkbox    xpath=(//*[@id="EuroProtection"])
+    Select Options By    xpath=(//*[@id="courtesycar"])    text    Yes
+    Click    xpath=(//*[@id="nextselectpriceoption"])
+    Sleep    10s
 
 Cleanup Browsers
     Run Keyword And Ignore Error    Close Context
