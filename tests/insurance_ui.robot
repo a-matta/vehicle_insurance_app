@@ -68,7 +68,27 @@ Enter Product Data
     Check Checkbox    xpath=(//*[@id="EuroProtection"])
     Select Options By    xpath=(//*[@id="courtesycar"])    text    Yes
     Click    xpath=(//*[@id="nextselectpriceoption"])
-    Sleep    10s
+
+
+Select Price Option
+    [Arguments]    ${price_option}=Silver
+    Click    xpath=(//*[@id="price_option"])
+    Click    xpath=(//*[@id="nextselectpriceoption"])
+
+Send Quote
+    ${email}=    FakerLibrary.Email
+    Fill Text    "E-Mail" >> .. >> input     ${email}
+    ${phone}    FakerLibrary.Phone
+    Fill Text    "Phone" >> .. >> input    ${phone}
+    Fill Text    "Username" >> .. >> input    ${username}
+    Fill Text    "Password" >> .. >> input    ${password}
+    Fill Text    "Confirm Password" >> .. >> input    ${confirmpasswor}
+    Fill Text    "Comments" >> .. >> textarea    Some comments
+    ${promise}=     Promise To    Wait For Response     matcher=http://sampleapp.tricentis.com/101/tcpdf/pdfs/quote.php     timeout=10
+    Click    xpath=(//*[@id="sendbutton"])
+    ${body}=    Wait For    ${promise}
+    Wait For Elements State    "Sending e-mail success!"
+    Click    "OK"
 
 Cleanup Browsers
     Run Keyword And Ignore Error    Close Context
